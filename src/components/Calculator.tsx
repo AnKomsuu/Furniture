@@ -1,33 +1,58 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { PRICES, MATERIALS, WHATSAPP_NUMBER } from "@/data";
+import { PRICES, WHATSAPP_NUMBER } from "@/data";
 
 const FURNITURE_TYPES = [
   { id: "kitchen", label: "Кухня" },
   { id: "wardrobe", label: "Шкаф" },
+  { id: "sofa", label: "Диван" },
   { id: "table", label: "Стол" },
   { id: "bed", label: "Кровать" },
+  { id: "other", label: "Другое" },
+];
+
+const MATERIALS_LIST = [
+  { id: "ldsp", name: "ЛДСП (Ламинированная ДСП)", multiplier: 1.0 },
+  { id: "mdf", name: "МДФ под эмалью / пленкой", multiplier: 1.2 },
+  { id: "veneer", name: "Натуральный шпон", multiplier: 1.45 },
+  { id: "wood", name: "Массив дерева", multiplier: 1.7 },
+  { id: "plastic", name: "Пластик HPL", multiplier: 1.3 },
+];
+
+const COLORS_LIST = [
+  { id: "white", name: "Белый", hex: "#FFFFFF" },
+  { id: "cream", name: "Бежевый / Кремовый", hex: "#F5F5DC" },
+  { id: "gray", name: "Серый", hex: "#9CA3AF" },
+  { id: "dark_gray", name: "Графит", hex: "#4B5563" },
+  { id: "black", name: "Черный", hex: "#111827" },
+  { id: "brown", name: "Коричневый", hex: "#78350F" },
+  { id: "blue", name: "Синий", hex: "#1E3A8A" },
+  { id: "green", name: "Зеленый", hex: "#064E3B" },
 ];
 
 export default function Calculator() {
   const [furnitureType, setFurnitureType] = useState("kitchen");
   const [width, setWidth] = useState<number>(2);
   const [height, SetHeight] = useState<number>(2.5);
-  const [material, setMaterial] = useState("white");
+  const [material, setMaterial] = useState("ldsp");
+  const [color, setColor] = useState("white");
+  const [otherDescription, setOtherDescription] = useState("");
 
   const priceData = useMemo(() => {
     const priceMap: Record<string, { minPrice: number; maxPrice: number }> = {
       kitchen: PRICES[0],
       wardrobe: PRICES[1],
+      sofa: PRICES[5] || { minPrice: 12000, maxPrice: 25000 },
       table: PRICES[2],
       bed: PRICES[4],
+      other: PRICES[6] || { minPrice: 5000, maxPrice: 20000 },
     };
     return priceMap[furnitureType] || PRICES[0];
   }, [furnitureType]);
 
   const materialData = useMemo(
-    () => MATERIALS.find((m) => m.id === material) || MATERIALS[0],
+    () => MATERIALS_LIST.find((m) => m.id === material) || MATERIALS_LIST[0],
     [material]
   );
 
@@ -42,14 +67,19 @@ export default function Calculator() {
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("ru-RU").format(price);
 
+  const selectedTypeLabel = FURNITURE_TYPES.find((t) => t.id === furnitureType)?.label;
+  const selectedColorName = COLORS_LIST.find((c) => c.id === color)?.name;
+
   const whatsappMessage = encodeURIComponent(
-    `Здравствуйте! Хочу заказать ${
-      FURNITURE_TYPES.find((t) => t.id === furnitureType)?.label
+    `Здравствуйте! Хочу заказать ${selectedTypeLabel}${
+      furnitureType === "other" && otherDescription.trim()
+        ? ` (${otherDescription.trim()})`
+        : ""
     }.\n\nПараметры:\n- Размер: ${width}м × ${height}м = ${area.toFixed(
       1
-    )} м²\n- Материал: ${materialData.name}\n\nПримерная стоимость: ${
+    )} м²\n- Материал: ${materialData.name}\n- Цвет: ${selectedColorName}\n\nПримерная стоимость: ${formatPrice(
       priceRange.min
-    } – ${priceRange.max} сом.\n\nХочу уточнить детали и записаться на замер.`
+    )} – ${formatPrice(priceRange.max)} сом.\n\nХочу уточнить детали и записаться на замер.`
   );
 
   return (
@@ -59,7 +89,7 @@ export default function Calculator() {
           Калькулятор стоимости
         </h2>
         <p className="text-center text-warm-gray mb-10">
-          Рассчитайте примерную стоимость вашего заказа
+          Рассчитайте примерную стоимость вашей будущей мебели за пару кликов
         </p>
 
         <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
@@ -68,10 +98,11 @@ export default function Calculator() {
               <label className="block text-sm font-medium mb-3 text-wood-dark">
                 Тип мебели
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {FURNITURE_TYPES.map((type) => (
                   <button
                     key={type.id}
+                    type="button"
                     onClick={() => setFurnitureType(type.id)}
                     className={`py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
                       furnitureType === type.id
@@ -84,6 +115,21 @@ export default function Calculator() {
                 ))}
               </div>
             </div>
+
+            {furnitureType === "other" && (
+              <div className="animate-fadeIn">
+                <label className="block text-sm font-medium mb-2 text-wood-dark">
+                  Что именно вы хотите заказать?
+                </label>
+                <textarea
+                  value={otherDescription}
+                  onChange={(e) => setOtherDescription(e.target.value)}
+                  placeholder="Опишите подробно мебель, которую вы хотите заказать (например: обувница в прихожую, тумбочка, мебель для ванной и т.д.)"
+                  rows={3}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-wood/20"
+                />
+              </div>
+            )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -118,20 +164,59 @@ export default function Calculator() {
 
             <div>
               <label className="block text-sm font-medium mb-2 text-wood-dark">
-                Материал / Цвет
+                Материал корпуса и фасадов
               </label>
               <select
                 value={material}
                 onChange={(e) => setMaterial(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg border border-border bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-wood/20"
               >
-                {MATERIALS.map((m) => (
+                {MATERIALS_LIST.map((m) => (
                   <option key={m.id} value={m.id}>
                     {m.name}
                     {m.multiplier > 1 ? ` (+${Math.round((m.multiplier - 1) * 100)}%)` : ""}
                   </option>
                 ))}
               </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-3 text-wood-dark">
+                Цвет: <span className="font-semibold text-wood">{selectedColorName}</span>
+              </label>
+              <div className="flex flex-wrap gap-3">
+                {COLORS_LIST.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setColor(c.id)}
+                    className={`w-10 h-10 rounded-lg relative transition-all ${
+                      color === c.id
+                        ? "ring-2 ring-wood ring-offset-2 scale-110"
+                        : "hover:scale-105"
+                    } ${c.id === "white" ? "border border-gray-300" : ""}`}
+                    style={{ backgroundColor: c.hex }}
+                    title={c.name}
+                    aria-label={c.name}
+                  >
+                    {color === c.id && (
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <svg
+                          className={`w-5 h-5 ${
+                            c.id === "white" || c.id === "cream" ? "text-gray-800" : "text-white"
+                          }`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -144,7 +229,7 @@ export default function Calculator() {
                 {formatPrice(priceRange.min)} – {formatPrice(priceRange.max)} сом
               </p>
               <p className="text-xs text-warm-gray mb-6">
-                Площадь: {area.toFixed(1)} м² • Точная стоимость — после замера
+                Площадь изделия: {area.toFixed(1)} м² • Точная стоимость определяется после бесплатного замера
               </p>
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}

@@ -60,7 +60,7 @@ export const REVIEWS: Review[] = [
   },
   {
     id: 4,
-    text: "Долго выбирали мастерскую. Остановились на этих ребятах — и не пожалели. Кухня просто супер!",
+    text: "Долго выбирали компанию. Остановились на них — и не пожалели. Кухня просто супер!",
     author: "Нуржан, Таш-Кумыр",
   },
   {
@@ -76,6 +76,8 @@ export const PRICES: PriceItem[] = [
   { type: "Столы", minPrice: 5000, maxPrice: 10000 },
   { type: "Стулья", minPrice: 3000, maxPrice: 6000 },
   { type: "Кровати", minPrice: 10000, maxPrice: 18000 },
+  { type: "Диваны", minPrice: 12000, maxPrice: 25000 },
+  { type: "Другое", minPrice: 5000, maxPrice: 20000 },
 ];
 
 export const MATERIALS = [
@@ -88,6 +90,6 @@ export const MATERIALS = [
 ];
 
 export const WHATSAPP_NUMBER = "996555123456";
-export const INSTAGRAM_URL = "https://instagram.com/your_workshop";
-export const WORKSHOP_NAME = "Мастерская «Мебельプロ»";
+export const INSTAGRAM_URL = "https://instagram.com/mebel_mailuusuu";
+export const WORKSHOP_NAME = "Мебель";
 export const CITY = "Майлуу-Суу, Жалал-Абадская область";
