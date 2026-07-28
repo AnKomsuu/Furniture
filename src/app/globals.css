@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf8f5;
+  --foreground: #2c2420;
+  --accent: #8b6914;
+  --accent-dark: #6d5411;
+  --accent-light: #f5f0e8;
+  --border: #e8e0d4;
+  --warm-gray: #9a8c7a;
+  --cream: #f9f6f1;
+  --wood: #a67c52;
+  --wood-dark: #7a5c3a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-light: var(--accent-light);
+  --color-border: var(--border);
+  --color-warm-gray: var(--warm-gray);
+  --color-cream: var(--cream);
+  --color-wood: var(--wood);
+  --color-wood-dark: var(--wood-dark);
+  --font-sans: var(--font-geist-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0ece4 25%, #e8e0d4 50%, #f0ece4 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
