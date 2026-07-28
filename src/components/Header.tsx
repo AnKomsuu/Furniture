@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface HeaderProps {
   workshopName: string;
@@ -8,6 +8,23 @@ interface HeaderProps {
 
 export default function Header({ workshopName }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // Проверяем скролл сразу при монтировании
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { href: "#about", label: "О нас" },
@@ -19,10 +36,21 @@ export default function Header({ workshopName }: HeaderProps) {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-border">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-cream/95 backdrop-blur-md border-b border-border/80 shadow-sm py-3"
+          : "bg-transparent border-transparent py-5"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <a href="#" className="text-lg font-semibold text-wood-dark">
+        <div className="flex items-center justify-between">
+          <a
+            href="#"
+            className={`text-xl font-bold tracking-wider transition-colors duration-300 ${
+              isScrolled ? "text-wood-dark" : "text-white drop-shadow"
+            }`}
+          >
             {workshopName}
           </a>
 
@@ -31,7 +59,11 @@ export default function Header({ workshopName }: HeaderProps) {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-warm-gray hover:text-wood-dark transition-colors"
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  isScrolled
+                    ? "text-warm-gray hover:text-wood-dark"
+                    : "text-white/80 hover:text-white drop-shadow-sm"
+                }`}
               >
                 {link.label}
               </a>
@@ -40,7 +72,11 @@ export default function Header({ workshopName }: HeaderProps) {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-warm-gray hover:text-wood-dark"
+            className={`md:hidden p-2 rounded-lg transition-colors duration-300 ${
+              isScrolled
+                ? "text-warm-gray hover:text-wood-dark"
+                : "text-white/80 hover:text-white drop-shadow"
+            }`}
             aria-label="Меню"
           >
             <svg
@@ -69,13 +105,13 @@ export default function Header({ workshopName }: HeaderProps) {
         </div>
 
         {isMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-border">
+          <nav className="md:hidden mt-3 pb-4 border-t border-border/30 animate-fadeIn bg-cream rounded-xl p-4 shadow-lg">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-3 text-sm text-warm-gray hover:text-wood-dark"
+                className="block py-3 text-sm font-medium text-warm-gray hover:text-wood-dark border-b border-border/10 last:border-0"
               >
                 {link.label}
               </a>

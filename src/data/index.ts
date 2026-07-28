@@ -18,28 +18,18 @@ export interface PriceItem {
 }
 
 export const WORKS: Work[] = [
-  { id: 1, src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80", alt: "Современная белая кухня", category: "kitchen" },
-  { id: 2, src: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80", alt: "Шкаф-купе с зеркалом", category: "wardrobe" },
-  { id: 3, src: "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=80", alt: "Кухня в тёмных тонах", category: "kitchen" },
-  { id: 4, src: "https://images.unsplash.com/photo-1558997519-8ef363837d86?w=800&q=80", alt: "Встроенный шкаф", category: "wardrobe" },
-  { id: 5, src: "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=800&q=80", alt: "Обеденный стол", category: "other" },
-  { id: 6, src: "https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80", alt: "Кухня с островом", category: "kitchen" },
-  { id: 7, src: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80", alt: "Шкаф для прихожей", category: "wardrobe" },
-  { id: 8, src: "https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=800&q=80", alt: "Минималистичная кухня", category: "kitchen" },
-  { id: 9, src: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80", alt: "Детский шкаф", category: "wardrobe" },
-  { id: 10, src: "https://images.unsplash.com/photo-1556909190-67f98e371014?w=800&q=80", alt: "Угловая кухня", category: "kitchen" },
-  { id: 11, src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80", alt: "Гардеробная", category: "wardrobe" },
-  { id: 12, src: "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=80", alt: "Кухня классика", category: "kitchen" },
-  { id: 13, src: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80", alt: "Рабочий стол", category: "other" },
-  { id: 14, src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80", alt: "Современная кухня", category: "kitchen" },
-  { id: 15, src: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80", alt: "Раздвижной шкаф", category: "wardrobe" },
-  { id: 16, src: "https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&q=80", alt: "Кухня с подсветкой", category: "kitchen" },
-  { id: 17, src: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80", alt: "Угловой шкаф", category: "wardrobe" },
-  { id: 18, src: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80", alt: "Кровать на заказ", category: "other" },
-  { id: 19, src: "https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=800&q=80", alt: "Кухня-остров", category: "kitchen" },
-  { id: 20, src: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80", alt: "Книжный шкаф", category: "wardrobe" },
-  { id: 21, src: "https://images.unsplash.com/photo-1556909190-67f98e371014?w=800&q=80", alt: "Эргономичная кухня", category: "kitchen" },
-  { id: 22, src: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80", alt: "Письменный стол", category: "other" },
+  { id: 1, src: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&q=80", alt: "Современная светлая кухня", category: "kitchen" },
+  { id: 2, src: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80", alt: "Стильный зеркальный шкаф-купе", category: "wardrobe" },
+  { id: 3, src: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=800&q=80", alt: "Кухня в стиле лофт", category: "kitchen" },
+  { id: 4, src: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80", alt: "Встроенный деревянный шкаф", category: "wardrobe" },
+  { id: 5, src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80", alt: "Премиальный мягкий диван", category: "other" },
+  { id: 6, src: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80", alt: "Минималистичная белая кухня", category: "kitchen" },
+  { id: 7, src: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80", alt: "Современная гардеробная система", category: "wardrobe" },
+  { id: 8, src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80", alt: "Просторная дизайнерская кухня", category: "kitchen" },
+  { id: 9, src: "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?w=800&q=80", alt: "Обеденный стол из массива дерева", category: "other" },
+  { id: 10, src: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80", alt: "Комфортная двуспальная кровать", category: "other" },
+  { id: 11, src: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?w=800&q=80", alt: "Вместительный шкаф в прихожую", category: "wardrobe" },
+  { id: 12, src: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80", alt: "Эргономичный рабочий стол", category: "other" }
 ];
 
 export const REVIEWS: Review[] = [

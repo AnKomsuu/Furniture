@@ -10,7 +10,7 @@ export default function Hero({ workshopName, onCalculateClick }: HeroProps) {
 
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80')" }}
+        style={{ backgroundImage: "url('https://s3.stroi-news.ru/img/mebel-na-belom-fone-oboi-1.jpg')" }}
       />
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
